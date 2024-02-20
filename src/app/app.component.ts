@@ -1,7 +1,8 @@
+import { resolve } from 'node:path';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Observable, of } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,14 @@ export class AppComponent {
   //   }, 6000);
   // });
 
-  myObservable = of(this.array1, this.array2, 20, 30, 'Hello', true);
+  // myObservable = of(this.array1, this.array2, 20, 30, 'Hello', true);
+
+  promiseData = new Promise((resolve, reject) => {
+    resolve([10, 20, 30, 40, 50]);
+  });
+
+  myObservable = from(this.promiseData);
+  // myObservable = from(this.array1);
 
   // Observer
   // next, error, complete
