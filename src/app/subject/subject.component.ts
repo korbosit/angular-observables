@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 
 @Component({
@@ -19,8 +19,14 @@ export class SubjectComponent implements OnInit {
     // });
     // // Subjects
     // const subject = new Subject();
+    // const subject = new BehaviorSubject<number>(100);
 
-    const subject = new BehaviorSubject<number>(100);
+    const subject = new ReplaySubject();
+    // const subject = new ReplaySubject(2,1000);
+
+    subject.next(100);
+    subject.next(200);
+    subject.next(300);
 
     // Subscriber 1
     subject.subscribe((data) => {
