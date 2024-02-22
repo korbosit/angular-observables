@@ -46,13 +46,15 @@ export class AppComponent {
   //     observer.complete();
   //   }, 6000);
   // });
-
+  // The of operator creates an observable from the arguments that we pass into it.You can pass any number of arguments to of operator
+  // Earch argument is emitted separately one after the other.It send the complete signal at the end.
   // myObservable = of(this.array1, this.array2, 20, 30, 'Hello', true);
 
   promiseData = new Promise((resolve, reject) => {
     resolve([10, 20, 30, 40, 50]);
   });
 
+  // The from operator takes a single argument which can be iterated over and convers it into an observable
   myObservable = from(this.promiseData);
   // myObservable = from(this.array1);
 
