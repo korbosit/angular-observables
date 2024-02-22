@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-subject',
@@ -14,20 +15,32 @@ export class SubjectComponent implements OnInit {
     // let obs = new Observable((observer) => {
     //   observer.next(Math.random());
     // });
+    // // Subjects
+    // const subject = new Subject();
+    // // Subscriber 1
+    // subject.subscribe((data) => {
+    //   console.log(data);
+    // });
+    // // Subscriber 2
+    // subject.subscribe((data) => {
+    //   console.log(data);
+    // });
+    // subject.next(Math.random());
 
-    // Subjects
+    // AJAX CALL
     const subject = new Subject();
+    const data = ajax('https://randomuser.me/api/');
 
-    // Subscriber 1
-    subject.subscribe((data) => {
-      console.log(data);
+    data.subscribe((res) => {
+      console.log(res);
+    });
+    data.subscribe((res) => {
+      console.log(res);
+    });
+    data.subscribe((res) => {
+      console.log(res);
     });
 
-    // Subscriber 2
-    subject.subscribe((data) => {
-      console.log(data);
-    });
-
-    subject.next(Math.random());
+    data.subscribe(subject);
   }
 }
