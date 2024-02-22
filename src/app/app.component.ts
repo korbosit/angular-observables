@@ -3,6 +3,7 @@ import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Observable, of, from, fromEvent } from 'rxjs';
+import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -14,32 +15,55 @@ import { Observable, of, from, fromEvent } from 'rxjs';
 export class AppComponent implements AfterViewInit {
   title = 'angular-observables';
 
-  @ViewChild('createbtn')
-  createBtn: ElementRef;
+  data: any[] = [];
 
-  createBtnObs;
+  promiseData = new Promise((resolve, reject) => {
+    resolve([10, 20, 30, 40, 50]);
+  });
 
-  buttonClicked() {
-    let count = 0;
-    // will be returned as observable
-    // using fromEvent we created observable from the 'click event'
-    this.createBtnObs = fromEvent(
-      this.createBtn.nativeElement,
-      'click'
-    ).subscribe((data) => {
-      console.log(data);
-      this.showItem(++count);
+  // OBSERVABLE
+  // myObservable - 2, 4, 6, 8, 10
+  // Result - 10, 20, 30, 40, 50
+  // The map operator is used to transform data emmited by a source observable in some way
+  // myObservable = from([2, 4, 6, 8, 10]);
+  // transformedObs = this.myObservable.pipe(
+  //   map((val) => {
+  //     return val * 5;
+  //   })
+  // );
+
+  // OBSERVABLE
+  // myObservable - 2, 4, 6, 8, 10, 12
+  // Result - 10, 20, 30, 40, 50,60
+  // The filter operator is used to filter data emitted by a source observable based on a given condition
+  myObservable = from([2, 4, 6, 8, 10, 12]);
+  // transformedObs - 10, 20, 30, 40, 50,60
+  transformedObs = this.myObservable.pipe(
+    map((val) => {
+      return val * 5;
+    })
+  );
+  // 20, 40, 60
+  filteredObs = this.transformedObs.pipe(
+    filter((val, i) => {
+      return val % 4 === 0;
+    })
+  );
+
+  // OBSERVE
+  GetAsyncData() {
+    this.filteredObs.subscribe({
+      next: (val: any) => {
+        this.data.push(val);
+      },
+      error: (err) => {
+        console.log(err.message);
+      },
+      complete: () => {
+        console.log('All the data is streamed');
+      },
     });
   }
 
-  ngAfterViewInit() {
-    this.buttonClicked();
-  }
-
-  showItem(val) {
-    let div = document.createElement('div');
-    div.innerText = 'Item' + val;
-    div.className = 'data-list';
-    document.getElementById('container').appendChild(div);
-  }
+  ngAfterViewInit() {}
 }
