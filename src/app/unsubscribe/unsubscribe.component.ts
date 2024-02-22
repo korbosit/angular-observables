@@ -11,16 +11,36 @@ import { interval } from 'rxjs';
 })
 export class UnsubscribeComponent {
   counter = interval(1000);
-  data: number[] = [];
+  data1: number[] = [];
+  data2: number[] = [];
+  data3: number[] = [];
   subscribe1;
+  subscribe2;
+  subscribe3;
 
-  OnSubscribe() {
+  OnSubscribe1() {
     this.subscribe1 = this.counter.subscribe((val) => {
-      this.data.push(val);
+      this.data1.push(val);
+    });
+  }
+  OnSubscribe2() {
+    this.subscribe2 = this.counter.subscribe((val) => {
+      this.data2.push(val);
+    });
+  }
+  OnSubscribe3() {
+    this.subscribe3 = this.counter.subscribe((val) => {
+      this.data3.push(val);
     });
   }
 
-  OnUnsubscribe() {
+  OnUnsubscribe1() {
     this.subscribe1.unsubscribe();
+  }
+  OnUnsubscribe2() {
+    this.subscribe2.unsubscribe();
+  }
+  OnUnsubscribe3() {
+    this.subscribe3.unsubscribe();
   }
 }
