@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 
 @Component({
@@ -9,6 +9,8 @@ import { ajax } from 'rxjs/ajax';
   templateUrl: './subject.component.html',
   styleUrl: './subject.component.scss',
 })
+
+// A BehaviourSubject is a subject wich can hold an initial value wich it emits if no new value is emitted.A BehaviourSubject emits an initial value or last emitted value for a new subsc
 export class SubjectComponent implements OnInit {
   ngOnInit() {
     // Observable
@@ -17,30 +19,40 @@ export class SubjectComponent implements OnInit {
     // });
     // // Subjects
     // const subject = new Subject();
-    // // Subscriber 1
-    // subject.subscribe((data) => {
-    //   console.log(data);
-    // });
-    // // Subscriber 2
-    // subject.subscribe((data) => {
-    //   console.log(data);
-    // });
-    // subject.next(Math.random());
 
+    const subject = new BehaviorSubject<number>(100);
+
+    // Subscriber 1
+    subject.subscribe((data) => {
+      console.log('Subscriber 1 ' + data);
+    });
+    // Subscriber 2
+    subject.subscribe((data) => {
+      console.log('Subscriber 2 ' + data);
+    });
+    subject.next(2020);
+
+    // Subscriber 3
+    subject.subscribe((data) => {
+      console.log('Subscriber 3 ' + data);
+    });
+
+    subject.next(2023);
     // AJAX CALL
-    const subject = new Subject();
-    const data = ajax('https://randomuser.me/api/');
+    //   const subject = new Subject();
+    //   const data = ajax('https://randomuser.me/api/');
 
-    data.subscribe((res) => {
-      console.log(res);
-    });
-    data.subscribe((res) => {
-      console.log(res);
-    });
-    data.subscribe((res) => {
-      console.log(res);
-    });
+    //   data.subscribe((res) => {
+    //     console.log(res);
+    //   });
+    //   data.subscribe((res) => {
+    //     console.log(res);
+    //   });
+    //   data.subscribe((res) => {
+    //     console.log(res);
+    //   });
 
-    data.subscribe(subject);
+    //   data.subscribe(subject);
+    // }
   }
 }
