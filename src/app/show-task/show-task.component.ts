@@ -14,6 +14,7 @@ export class ShowTaskComponent implements OnInit {
 
   taskService: TaskService = inject(TaskService);
 
+  // observe from TaskService
   ngOnInit() {
     this.taskService.CreateTask.subscribe((value) => {
       this.tasks.push(value);

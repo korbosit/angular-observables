@@ -14,5 +14,3 @@ import { ShowTaskComponent } from './show-task/show-task.component';
 export class AppComponent {
   title = 'angular-observables';
 }
-
-// The Subject is a special type of observable that allows values to be muticasted to many observes. Subjects are like EventEmmitters.
