@@ -38,17 +38,20 @@ export class AppComponent implements AfterViewInit {
   // The filter operator is used to filter data emitted by a source observable based on a given condition
   myObservable = from([2, 4, 6, 8, 10, 12]);
   // transformedObs - 10, 20, 30, 40, 50,60
-  transformedObs = this.myObservable.pipe(
+  filteredObs = this.myObservable.pipe(
     map((val) => {
       return val * 5;
-    })
-  );
-  // 20, 40, 60
-  filteredObs = this.transformedObs.pipe(
+    }),
     filter((val, i) => {
       return val % 4 === 0;
     })
   );
+  // 20, 40, 60
+  // filteredObs = this.transformedObs.pipe(
+  //   filter((val, i) => {
+  //     return val % 4 === 0;
+  //   })
+  // );
 
   // OBSERVE
   GetAsyncData() {
