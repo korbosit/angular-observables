@@ -26,14 +26,11 @@ export class SubjectComponent implements OnInit {
     // // Subjects
     // const subject = new Subject();
     // const subject = new BehaviorSubject<number>(100);
-
     // const subject = new ReplaySubject();
     // // const subject = new ReplaySubject(2,1000);
-
     // subject.next(100);
     // subject.next(200);
     // subject.next(300);
-
     // Subscriber 1
     // subject.subscribe((data) => {
     //   console.log('Subscriber 1 ' + data);
@@ -43,17 +40,14 @@ export class SubjectComponent implements OnInit {
     //   console.log('Subscriber 2 ' + data);
     // });
     // subject.next(2020);
-
     // // Subscriber 3
     // subject.subscribe((data) => {
     //   console.log('Subscriber 3 ' + data);
     // });
-
     // subject.next(2023);
     // AJAX CALL
     //   const subject = new Subject();
     //   const data = ajax('https://randomuser.me/api/');
-
     //   data.subscribe((res) => {
     //     console.log(res);
     //   });
@@ -63,25 +57,39 @@ export class SubjectComponent implements OnInit {
     //   data.subscribe((res) => {
     //     console.log(res);
     //   });
-
     //   data.subscribe(subject);
     // }
-
     // ASYNC SUBJECT
-    const asyncSubject = new AsyncSubject();
-
-    asyncSubject.next(100);
-    asyncSubject.next(200);
-    asyncSubject.next(300);
-    // asyncSubject.complete();
+    // const asyncSubject = new AsyncSubject();
+    // asyncSubject.next(100);
+    // asyncSubject.next(200);
     // asyncSubject.next(300);
+    // // asyncSubject.complete();
+    // // asyncSubject.next(300);
+    // asyncSubject.subscribe((data) => console.log(`Subsciber 1: ${data}`));
+    // asyncSubject.complete();
+    // asyncSubject.next(400);
+    // asyncSubject.complete();
+    // asyncSubject.subscribe((data) => console.log(`Subsciber 2: ${data}`));
 
-    asyncSubject.subscribe((data) => console.log(`Subsciber 1: ${data}`));
+    // Promise vs Observable
 
-    asyncSubject.complete();
-    asyncSubject.next(400);
-    asyncSubject.complete();
+    const promise = new Promise((resolve, reject) => {
+      console.log('Promise is called');
+      resolve(100);
+    });
 
-    asyncSubject.subscribe((data) => console.log(`Subsciber 2: ${data}`));
+    promise.then((data) => {
+      console.log(data);
+    });
+
+    const obs = new Observable((sub) => {
+      console.log('Observable is called');
+      sub.next(100);
+      sub.next(200);
+      sub.next(300);
+    });
+
+    obs.subscribe((data) => console.log(`Subsciber`, data));
   }
 }
